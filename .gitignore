@@ -1,0 +1,6 @@
+node_modules
+.env
+
+# internal working files (not part of the project)
+PROJECT_GUIDE.md
+PROGRESS_LOG.md

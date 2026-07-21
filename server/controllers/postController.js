@@ -11,7 +11,7 @@ const createPost = async (req, res) => {
     const post = await Post.create({
       title,
       content,
-      isPrivate: isPrivate || false,
+      isPrivate: Boolean(isPrivate),
       author: req.userId,
     });
 
