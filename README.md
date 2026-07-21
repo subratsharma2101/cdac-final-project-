@@ -50,6 +50,8 @@ Base URL: `http://localhost:5000`
 | /api/posts | GET | Public |
 | /api/posts | POST | Protected |
 | /api/posts/dashboard | GET | Protected |
+| /api/posts/:id | PUT | Protected |
+| /api/posts/:id | DELETE | Protected |
 
 ### Register a new user (Public)
 
@@ -106,3 +108,26 @@ Both routes return a JWT token. Save this token, it is needed for the protected 
 - URL: `/api/posts/dashboard`
 - Header: `Authorization: Bearer <your_token>`
 - Returns all the logged in user's posts (both public and private).
+
+### Update a post (Protected)
+
+- Method: `PUT`
+- URL: `/api/posts/:id`
+- Header: `Authorization: Bearer <your_token>`
+- Only the author of the post can update it.
+- Request body (send whatever you want to change):
+
+  ```json
+  {
+    "title": "My updated title",
+    "content": "Updated content",
+    "isPrivate": true
+  }
+  ```
+
+### Delete a post (Protected)
+
+- Method: `DELETE`
+- URL: `/api/posts/:id`
+- Header: `Authorization: Bearer <your_token>`
+- Only the author of the post can delete it.
