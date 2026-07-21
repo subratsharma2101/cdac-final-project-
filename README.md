@@ -1,19 +1,8 @@
-# Blogging App - Backend (MERN)
+# Blogging App - Backend
 
-This is the backend for a full-stack blogging application built with the MERN stack.
-Users can read public posts without logging in, but they need to register and log in
-to create their own posts. Each post can be made Public or Private.
+## How to Set Up and Run the Server Locally
 
-## Tech Used
-
-- Node.js + Express.js
-- MongoDB (Mongoose)
-- JWT for authentication
-- bcryptjs for password hashing
-
-## How to Run Locally
-
-1. Clone the repo and go into the server folder:
+1. Go into the server folder:
 
    ```
    cd server
@@ -27,7 +16,7 @@ to create their own posts. Each post can be made Public or Private.
 
 3. Create a `.env` file inside the `server` folder (see the variables below).
 
-4. Make sure MongoDB is running on your machine (or use a MongoDB Atlas URL).
+4. Make sure MongoDB is running (local or MongoDB Atlas).
 
 5. Start the server:
 
@@ -37,9 +26,9 @@ to create their own posts. Each post can be made Public or Private.
 
    If everything is fine you will see `Server running on port 5000` and `MongoDB connected`.
 
-## Environment Variables
+## Required .env Variables
 
-Create a `.env` file in the `server` folder with these variables:
+Create a `.env` file inside the `server` folder with these variables:
 
 ```
 PORT=5000
@@ -48,19 +37,25 @@ JWT_SECRET=your_secret_key
 CLIENT_URL=http://localhost:5173
 ```
 
-Note: Never commit your real `.env` file or actual secrets to GitHub. It is already
-added to `.gitignore`.
+Note: Never commit your real `.env` file or actual secrets to GitHub.
 
-## API Endpoints
+## API Endpoint Documentation
 
 Base URL: `http://localhost:5000`
 
-### User Routes (public)
+| Route | Method | Access |
+|-------|--------|--------|
+| /api/user/register | POST | Public |
+| /api/user/login | POST | Public |
+| /api/posts | GET | Public |
+| /api/posts | POST | Protected |
+| /api/posts/dashboard | GET | Protected |
 
-**Register a new user**
+### Register a new user (Public)
 
-- `POST /api/user/register`
-- Body:
+- Method: `POST`
+- URL: `/api/user/register`
+- Request body:
 
   ```json
   {
@@ -70,10 +65,11 @@ Base URL: `http://localhost:5000`
   }
   ```
 
-**Login**
+### Login (Public)
 
-- `POST /api/user/login`
-- Body:
+- Method: `POST`
+- URL: `/api/user/login`
+- Request body:
 
   ```json
   {
@@ -82,19 +78,19 @@ Base URL: `http://localhost:5000`
   }
   ```
 
-Both of these return a JWT token. Save this token, you need it for the protected routes.
+Both routes return a JWT token. Save this token, it is needed for the protected routes.
 
-### Post Routes
+### Get all public posts (Public)
 
-**Get all public posts (public - no login needed)**
+- Method: `GET`
+- URL: `/api/posts`
 
-- `GET /api/posts`
+### Create a new post (Protected)
 
-**Create a new post (protected - login needed)**
-
-- `POST /api/posts`
+- Method: `POST`
+- URL: `/api/posts`
 - Header: `Authorization: Bearer <your_token>`
-- Body:
+- Request body:
 
   ```json
   {
@@ -104,18 +100,9 @@ Both of these return a JWT token. Save this token, you need it for the protected
   }
   ```
 
-**Get my own posts / dashboard (protected - login needed)**
+### Get my own posts / dashboard (Protected)
 
-- `GET /api/posts/dashboard`
+- Method: `GET`
+- URL: `/api/posts/dashboard`
 - Header: `Authorization: Bearer <your_token>`
 - Returns all the logged in user's posts (both public and private).
-
-## Public vs Protected Routes
-
-| Route | Method | Access |
-|-------|--------|--------|
-| /api/user/register | POST | Public |
-| /api/user/login | POST | Public |
-| /api/posts | GET | Public |
-| /api/posts | POST | Protected (token needed) |
-| /api/posts/dashboard | GET | Protected (token needed) |
