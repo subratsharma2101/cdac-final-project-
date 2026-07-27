@@ -1,0 +1,4 @@
+/* MUI ke CssBaseline sab handle karta hai, body margin sirf safety ke liye */
+body {
+  margin: 0;
+}
